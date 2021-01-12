@@ -16,21 +16,24 @@ public class CreateAccountTest extends TestBase {
     }
 
     @Test
-    public void testSignUp() {
+    public void testSignUp() throws InterruptedException {
         //wd.findElement(By.cssSelector("[href='/signup']")).click(); //click on SignUp Button
         click(By.cssSelector("[href='/signup']"));
 
-       Assert.assertTrue(isElementPreswent(By.cssSelector("form.signup__fields")));
+        Assert.assertTrue(isElementPreswent(By.cssSelector("form.signup__fields")));
 
         //fill registration form
         //manuel@gmail.com
-        type(By.cssSelector("#first_name"), "Manuel");
-        type(By.cssSelector("#second_name"), "Neuer");
-        type(By.cssSelector("#email"), "manuel1@gmail.com");
-        type(By.cssSelector("#password"), "Manuel12345");
+        fillRegistraitionForm(new User()
+                .withFirstName("Manuel")
+                .withSecondName("Neuer")
+                .withEmail("manuel6@gmail.com")
+                .withPassword("Manuel12345"));
 
         //wd.findElement(By.cssSelector("#check_policy")).click();
         click(By.cssSelector("#check_policy"));
+
+        //  Thread.sleep(2000);
 
         //click Submit button
         submitForm();
@@ -38,6 +41,30 @@ public class CreateAccountTest extends TestBase {
         Assert.assertTrue(isLoginFormPresent());
 //        Assert.assertTrue(isElementPreswent(By.cssSelector(".Login_login__right_block__1niYm")));
 
+    }
+
+    @Test
+    public void testSignUpWithoutPassword() {
+        click(By.cssSelector("[href='/signup']"));
+
+        Assert.assertTrue(isElementPreswent(By.cssSelector("form.signup__fields")));
+
+        fillRegistraitionForm(new User()
+                .withFirstName("Manuel1")
+                .withSecondName("Neuer1")
+                .withEmail("manuel51@gmail.com"));
+
+        click(By.cssSelector("#check_policy"));
+
+        submitForm();
+        Assert.assertTrue(isLoginFormPresent());
+    }
+
+    public void fillRegistraitionForm(User user) {
+        type(By.name("first_name"), user.getFirstName());
+        type(By.name("second_name"), user.getSecondName());
+        type(By.name("email"), user.getEmail());
+        type(By.name("password"), user.getPassword());
     }
 
 

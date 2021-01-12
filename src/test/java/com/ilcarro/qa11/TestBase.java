@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +15,7 @@ public class TestBase {
 
     static WebDriver wd;
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         //System.setProperty("webdriver.driver.chrome","");
         wd = new ChromeDriver();
@@ -22,7 +24,7 @@ public class TestBase {
         wd.get("https://ilcarro-dev-v1.firebaseapp.com/");
     }
 
-    @AfterMethod(enabled = false)
+    @AfterSuite(enabled = false)
     public void tearDown() {
         wd.quit();
     }
@@ -71,10 +73,10 @@ public class TestBase {
     }
 
     public void clickLoginTabOnHeader() {
-        click(By.cssSelector("href='/login'"));
+        click(By.cssSelector("[href='/login']"));
     }
 
     public boolean userLoggedIn() {
-        return isElementPreswent(By.cssSelector("//a[contains(.,'logOut')]"));
+        return isElementPreswent(By.xpath("//a[contains(.,'logOut')]"));
     }
 }
