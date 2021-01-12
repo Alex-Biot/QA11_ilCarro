@@ -19,7 +19,7 @@ public class LoginTest extends TestBase {
     }
 
     @Test
-    public void loginRegisteredUserPosiveTest() {
+    public void loginRegisteredUserPositiveTest() {
 
         //fill login form
         type(By.name("email"),"manuel@gmail.com");
