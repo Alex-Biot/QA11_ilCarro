@@ -43,4 +43,38 @@ public class TestBase {
             return false;
         }
     }
+
+    public void type(By locator, String text) {
+       click(locator);
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+    }
+
+    public void click(By locator) {
+        wd.findElement(locator).click();
+    }
+
+    public boolean isLoginFormPresent() {
+        return isElementPreswent(By.cssSelector(".Login_login__right_block__1niYm"));
+    }
+
+    public void submitForm() {
+        click(By.cssSelector("[type='submit']"));
+    }
+
+    public boolean isSignUpTabPresentInHeader() {
+        return isElementPreswent(By.cssSelector("[href='/signup']"));
+    }
+
+    public void logOut() {
+        click(By.xpath("//a[contains(.,'logOut')]"));
+    }
+
+    public void clickLoginTabOnHeader() {
+        click(By.cssSelector("href='/login'"));
+    }
+
+    public boolean userLoggedIn() {
+        return isElementPreswent(By.cssSelector("//a[contains(.,'logOut')]"));
+    }
 }
